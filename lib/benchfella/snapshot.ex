@@ -92,7 +92,7 @@ defmodule Benchfella.Snapshot do
     end)
   end
 
-  def format_percent(0.0) do
+  def format_percent(+0.0) do
     "--"
   end
 

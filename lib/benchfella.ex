@@ -518,7 +518,7 @@ defmodule Benchfella do
         kind, error ->
           IO.puts(
             :stderr,
-            Exception.format(kind, error, pruned_stacktrace()) |> String.trim_trailing()
+            Exception.format(kind, error, pruned_stacktrace(__STACKTRACE__)) |> String.trim_trailing()
           )
       end
     else
@@ -531,7 +531,7 @@ defmodule Benchfella do
       try do
         apply(mod, @teardown_func, [mod_context])
       catch
-        kind, error -> IO.puts(:stderr, Exception.format(kind, error, pruned_stacktrace()))
+        kind, error -> IO.puts(:stderr, Exception.format(kind, error, pruned_stacktrace(__STACKTRACE__)))
       end
     end
   end
@@ -551,7 +551,7 @@ defmodule Benchfella do
         kind, error ->
           IO.puts(
             :stderr,
-            Exception.format(kind, error, pruned_stacktrace()) |> String.trim_trailing()
+            Exception.format(kind, error, pruned_stacktrace(__STACKTRACE__)) |> String.trim_trailing()
           )
       end
     end
@@ -562,7 +562,7 @@ defmodule Benchfella do
       try do
         apply(mod, @after_each_func, [bench_context])
       catch
-        kind, error -> IO.puts(:stderr, Exception.format(kind, error, pruned_stacktrace()))
+        kind, error -> IO.puts(:stderr, Exception.format(kind, error, pruned_stacktrace(__STACKTRACE__)))
       end
     end
   end
@@ -581,8 +581,8 @@ defmodule Benchfella do
     end
   end
 
-  defp pruned_stacktrace do
-    System.stacktrace()
+  defp pruned_stacktrace(stacktrace) do
+    stacktrace
     |> Enum.take_while(fn {mod, _, _, _} -> mod != __MODULE__ end)
   end
 
