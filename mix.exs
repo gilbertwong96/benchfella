@@ -37,7 +37,7 @@ defmodule Benchfella.Mixfile do
 
   defp docs do
     [
-      extras: [{:"LICENSE", [title: "License"]}, "README.md"],
+      extras: [{:LICENSE, [title: "License"]}, "README.md"],
       main: "readme",
       source_url: @source_url,
       assets: "assets",
